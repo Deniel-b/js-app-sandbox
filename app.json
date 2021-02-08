@@ -1,0 +1,12 @@
+{
+  "name": "hackaton-app",
+  "displayName": "hackaton-app",
+  "expo": {
+    "name": "hackaton-app",
+    "slug": "hackaton-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
