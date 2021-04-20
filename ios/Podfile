@@ -21,4 +21,6 @@ target 'hackatonapp' do
   #  post_install do |installer|
   #    flipper_post_install(installer)
   #  end
+  pod 'react-native-tcp-socket', :path => '../node_modules/react-native-tcp-socket'
+
 end

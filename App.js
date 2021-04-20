@@ -4,10 +4,20 @@ import { NativeRouter } from 'react-router-native';
 
 import AppPage from './src/components/appPage/appPage';
 import { useEffect } from 'react';
-import io from "socket.io-client";
+import TcpSocket from 'react-native-tcp-socket';
 
-const URL = 'http://95.37.73.173:5000/';
-const socket = io(URL, { forceNode: false });
+
+
+/*import socketIO from "socket.io-client";
+
+const socket = socketIO("95.37.73.173:5000");
+socket.connect()*/
+
+const socket = TcpSocket.createConnection({host:'localhost', port:"5000"}, () => {
+  socket.write("Connected");
+  console.log("Connected")
+})
+
 
 function toUTF8Array(str) {
   var utf8 = [];
@@ -38,19 +48,7 @@ function toUTF8Array(str) {
 
 
 const App = () => {
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log("CONNECTED");
-      var tmp = toUTF8Array("Synhr\0\r\n");
-      console.log(tmp)
-      socket.send(tmp)
-    });
-
-    socket.on('disconnect', () => {
-      console.log('connection to server lost.');
-    });
-  }, []);
- 
+  
   return (  
     <NativeRouter>
           <SafeAreaView style={{backgroundColor: "#ffffff"}}>
@@ -63,3 +61,44 @@ const App = () => {
 }
 
 export default App;
+
+/*import * as React from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import styled from 'styled-components'
+import TcpSocket from 'react-native-tcp-socket';
+
+export default class App extends React.Component {
+  _connect = () => {
+    client = TcpSocket.createConnection({
+      host: "95.37.73.173",
+      port: "5000"
+    });
+  }
+
+
+
+  render(){
+    return(
+      <View >
+        <TouchableOpacity
+          onPress={this._connect}
+        >
+          <BtnWrapper>
+          <Text>Connect</Text>
+          </BtnWrapper>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+}
+
+
+const BtnWrapper = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: #79CF77;
+  margin-bottom: ${props => props.last ? 0 : "80px"};
+`;*/
